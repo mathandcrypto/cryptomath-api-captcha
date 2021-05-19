@@ -26,7 +26,7 @@
     "@nestjs/core": "^7.5.1",
     "@nestjs/microservices": "^7.6.17",
     "@nestjs/platform-express": "^7.5.1",
-    "cryptomath-api-proto": "github:mathandcrypto/cryptomath-api-proto",
+    "cryptomath-api-proto": "file:../cryptomath-api-proto",
     "grpc": "^1.24.10",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

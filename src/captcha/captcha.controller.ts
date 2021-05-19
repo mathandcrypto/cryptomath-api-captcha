@@ -21,10 +21,12 @@ export class CaptchaController implements CaptchaServiceController {
       return {
         isTaskGenerated: false,
         taskPayload: null,
+        math: '',
       };
     }
 
     const params = task.generate();
+    const math = task.math(...params);
 
     return {
       isTaskGenerated: true,
@@ -32,6 +34,7 @@ export class CaptchaController implements CaptchaServiceController {
         uuid,
         params,
       },
+      math,
     };
   }
 
