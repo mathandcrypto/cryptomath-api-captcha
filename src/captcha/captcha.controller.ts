@@ -6,10 +6,10 @@ import {
   GenerateTaskResponse,
   ValidateTaskRequest,
   ValidateTaskResponse,
-} from 'cryptomath-api-proto/proto/build/captcha';
+} from 'cryptomath-api-proto/types/captcha';
 import { CaptchaService } from './captcha.service';
 
-@Controller('captcha')
+@Controller()
 @CaptchaServiceControllerMethods()
 export class CaptchaController implements CaptchaServiceController {
   constructor(private readonly captchaService: CaptchaService) {}
