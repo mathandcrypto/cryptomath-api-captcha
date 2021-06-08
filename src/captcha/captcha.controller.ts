@@ -6,10 +6,10 @@ import {
   GenerateTaskResponse,
   ValidateTaskRequest,
   ValidateTaskResponse,
-} from 'cryptomath-api-proto/proto/build/captcha';
+} from 'cryptomath-api-proto/types/captcha';
 import { CaptchaService } from './captcha.service';
 
-@Controller('captcha')
+@Controller()
 @CaptchaServiceControllerMethods()
 export class CaptchaController implements CaptchaServiceController {
   constructor(private readonly captchaService: CaptchaService) {}
@@ -21,10 +21,12 @@ export class CaptchaController implements CaptchaServiceController {
       return {
         isTaskGenerated: false,
         taskPayload: null,
+        math: '',
       };
     }
 
     const params = task.generate();
+    const math = task.math(...params);
 
     return {
       isTaskGenerated: true,
@@ -32,6 +34,7 @@ export class CaptchaController implements CaptchaServiceController {
         uuid,
         params,
       },
+      math,
     };
   }
 
