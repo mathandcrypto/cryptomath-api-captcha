@@ -26,6 +26,8 @@ async function bootstrap() {
 
   await app.init();
 
+  app.enableShutdownHooks();
+
   app.startAllMicroservices(() =>
     console.log(`Captcha microservice is listening on ${url}`),
   );
