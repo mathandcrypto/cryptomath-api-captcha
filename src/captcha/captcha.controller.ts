@@ -2,11 +2,10 @@ import { Controller } from '@nestjs/common';
 import {
   CaptchaServiceController,
   CaptchaServiceControllerMethods,
-  GenerateTaskRequest,
   GenerateTaskResponse,
   ValidateTaskRequest,
   ValidateTaskResponse,
-} from 'cryptomath-api-proto/types/captcha';
+} from '@cryptomath/cryptomath-api-proto/types/captcha';
 import { CaptchaService } from './captcha.service';
 
 @Controller()
@@ -14,10 +13,10 @@ import { CaptchaService } from './captcha.service';
 export class CaptchaController implements CaptchaServiceController {
   constructor(private readonly captchaService: CaptchaService) {}
 
-  generateTask({ difficulty }: GenerateTaskRequest): GenerateTaskResponse {
-    const [uuid, task] = this.captchaService.getRandomTask(difficulty);
+  async generateTask(): Promise<GenerateTaskResponse> {
+    const [isTaskGenerated, task] = await this.captchaService.getRandomTask();
 
-    if (!task) {
+    if (!isTaskGenerated) {
       return {
         isTaskGenerated: false,
         taskPayload: null,
@@ -25,34 +24,32 @@ export class CaptchaController implements CaptchaServiceController {
       };
     }
 
-    const params = task.generate();
-    const math = task.math(...params);
+    const { uuid, difficulty, math } = task;
 
     return {
       isTaskGenerated: true,
       taskPayload: {
         uuid,
-        params,
+        difficulty,
       },
       math,
     };
   }
 
-  validateTask({
+  async validateTask({
     uuid,
-    params,
     answer,
-  }: ValidateTaskRequest): ValidateTaskResponse {
-    const task = this.captchaService.getTask(uuid);
+  }: ValidateTaskRequest): Promise<ValidateTaskResponse> {
+    const [isTaskExists, task] = await this.captchaService.getTask(uuid);
 
-    if (!task) {
+    if (!isTaskExists) {
       return {
         isTaskFound: false,
         isAnswerCorrect: false,
       };
     }
 
-    const correctAnswer = task.answer(...params);
+    const correctAnswer = task.answer;
     const isAnswerCorrect = correctAnswer === answer;
 
     return {

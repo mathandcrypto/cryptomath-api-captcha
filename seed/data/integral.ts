@@ -1,14 +1,10 @@
 import { CaptchaTask } from '../interfaces/captcha-task.interface';
-import { randomInt } from '@common/helpers/math';
 
 export const integralTasks: CaptchaTask[] = [
   {
     difficulty: 2,
-    generate: () => {
-      const m = randomInt(1, 15);
-
-      return [m];
-    },
+    generateParams: [[1, 15]],
+    generate: (m) => [m],
     math: (m) => {
       const p = 3 * m;
 
@@ -18,12 +14,11 @@ export const integralTasks: CaptchaTask[] = [
   },
   {
     difficulty: 1,
-    generate: () => {
-      const m = randomInt(2, 12);
-      const n = randomInt(3, 23);
-
-      return [m, n];
-    },
+    generateParams: [
+      [2, 12],
+      [3, 23],
+    ],
+    generate: (m, n) => [m, n],
     math: (m, n) => {
       const a = 2 * m;
       const b = 2 * n;
@@ -34,11 +29,14 @@ export const integralTasks: CaptchaTask[] = [
   },
   {
     difficulty: 2,
-    generate: () => {
-      const a = randomInt(1, 11);
-      const b = a * randomInt(2, 83);
+    generateParams: [
+      [1, 11],
+      [2, 83],
+    ],
+    generate: (a, b) => {
+      const c = a * b;
 
-      return [a, b];
+      return [a, c];
     },
     math: (a, b) => {
       return String.raw`\exp \Bigg ( \int\limits_{0}^{\infty} \frac{\exp (-${a} x) - \exp (-${b} x)}{x} \; {d}x \Bigg )`;
@@ -47,22 +45,16 @@ export const integralTasks: CaptchaTask[] = [
   },
   {
     difficulty: 1,
-    generate: () => {
-      const a = randomInt(1, 54321);
-
-      return [a];
-    },
+    generateParams: [[1, 54321]],
+    generate: (a) => [a],
     math: (a) =>
       String.raw`\ln \Bigg ( \frac{2}{\pi} \int\limits_{0}^{+\infty} \frac{\cos ${a}x}{1 + x^2} \; dx \Bigg )`,
     answer: (a) => -1 * a,
   },
   {
     difficulty: 1,
-    generate: () => {
-      const a = randomInt(1, 17);
-
-      return [a];
-    },
+    generateParams: [[1, 17]],
+    generate: (a) => [a],
     math: (a) => {
       const square = Math.pow(a, 2);
 

@@ -11,10 +11,12 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "incremental": true,
+    "skipLibCheck": true,
     "paths": {
-      "@config/*": ["config/*"],
       "@common/*": ["common/*"],
-      "@captcha/*": ["captcha/*"]
+      "@config/*": ["config/*"],
+      "@captcha/*": ["captcha/*"],
+      "@providers/*": ["providers/*"]
     }
   }
 }

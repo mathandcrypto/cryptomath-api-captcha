@@ -1,14 +1,10 @@
 import { CaptchaTask } from '../interfaces/captcha-task.interface';
-import { randomInt } from '@common/helpers/math';
 
 export const summingTasks: CaptchaTask[] = [
   {
     difficulty: 1,
-    generate: () => {
-      const n = randomInt(10, 49497);
-
-      return [n];
-    },
+    generateParams: [[10, 49497]],
+    generate: (n) => [n],
     math: (n) =>
       String.raw`6 \cdot \frac{1 \cdot 2 + 2 \cdot 3 + 3 \cdot 4 + \ldots +  ${n} \cdot ${
         n + 1
@@ -17,11 +13,8 @@ export const summingTasks: CaptchaTask[] = [
   },
   {
     difficulty: 1,
-    generate: () => {
-      const n = randomInt(6, 121);
-
-      return [n];
-    },
+    generateParams: [[6, 121]],
+    generate: (n) => [n],
     math: (n) =>
       String.raw`\frac{1}{${
         n - 3
@@ -32,11 +25,8 @@ export const summingTasks: CaptchaTask[] = [
   },
   {
     difficulty: 1,
-    generate: () => {
-      const k = randomInt(4, 976);
-
-      return [k];
-    },
+    generateParams: [[4, 976]],
+    generate: (k) => [k],
     math: (k) => {
       const n = 2 * k + 1;
       const double = 2 * n;

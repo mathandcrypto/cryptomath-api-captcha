@@ -1,15 +1,13 @@
 import { CaptchaTask } from '../interfaces/captcha-task.interface';
-import { randomInt } from '@common/helpers/math';
 
 export const logarithmTasks: CaptchaTask[] = [
   {
     difficulty: 2,
-    generate: () => {
-      const p = randomInt(3, 23);
-      const m = randomInt(2, 100);
-
-      return [p, m];
-    },
+    generateParams: [
+      [3, 23],
+      [2, 100],
+    ],
+    generate: (p, m) => [p, m],
     math: (p, m) => {
       const k = Math.pow(p, 2);
       const n = m * k;
