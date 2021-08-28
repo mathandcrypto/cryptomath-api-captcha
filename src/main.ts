@@ -32,6 +32,6 @@ async function bootstrap() {
 
   await app.startAllMicroservices();
 
-  logger.log(`Captcha microservice is listen5ing on ${url}`);
+  logger.log(`Captcha microservice is listening on ${url}`);
 }
 bootstrap();
